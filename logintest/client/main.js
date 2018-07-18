@@ -11,10 +11,9 @@ const theme = createMuiTheme({});
 
 Meteor.startup(() => {
   render(
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline />
+    <div>
       <App />
-    </MuiThemeProvider>,
+    </div>,
     document.getElementById('render-target')
   );
 });
