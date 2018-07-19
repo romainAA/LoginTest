@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-const loginForm = ({username, setUsername, password, setPassword, classes}) =>{
+const signInForm = ({username, setUsername, password, setPassword, mail, setMail, classes}) =>{
   return (
 <form className={classes.container} noValidate autoComplete="off">
   <TextField
@@ -32,6 +32,14 @@ const loginForm = ({username, setUsername, password, setPassword, classes}) =>{
           className={classes.textField}
           value={username}
           onChange={e => setUsername(e.target.value)}
+          margin="normal"
+        />
+  <TextField
+          id="mail"
+          label="email"
+          className={classes.textField}
+          value={mail}
+          onChange={e => setMail(e.target.value)}
           margin="normal"
         />
   <TextField
@@ -45,12 +53,12 @@ const loginForm = ({username, setUsername, password, setPassword, classes}) =>{
   <Button
     variant='contained'
     className={classes.button}
-    // onClick={() => Meteor.call('user.login',username, password)}
-    onClick={() => Meteor.loginWithPassword(username, password)}
-    >Log In</Button>
+    onClick={() => Accounts.createUser({username, mail, password})}
+    >Sign In</Button>
 </form>)}
 
 export default compose(
   withState('username', 'setUsername',''),
-  withState('password', 'setPassword', '')
-)(withStyles(styles)(loginForm))
+  withState('password', 'setPassword', ''),
+  withState('mail', 'setMail', '')
+)(withStyles(styles)(signInForm))
