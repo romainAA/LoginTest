@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-const signInForm = ({username, setUsername, password, setPassword, mail, setMail, classes}) =>{
+const signInForm = ({username, setUsername, password, setPassword, mail, setMail, classes, changePageFn}) =>{
   return (
 <form className={classes.container} noValidate autoComplete="off">
   <TextField
@@ -53,7 +53,10 @@ const signInForm = ({username, setUsername, password, setPassword, mail, setMail
   <Button
     variant='contained'
     className={classes.button}
-    onClick={() => Accounts.createUser({username, mail, password})}
+    onClick={() => {
+      Accounts.createUser({username, mail, password});
+      changePageFn['Main']()
+    }}
     >Sign In</Button>
 </form>)}
 

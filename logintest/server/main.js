@@ -26,3 +26,10 @@ Meteor.methods({
     console.log(user)
   }
 })
+
+Meteor.publish('groups', function() {
+  if(!this.userId) return [];
+  var user = Meteor.users.findOne(this.userId);
+  return user.emails[0]
+ /* use user.emails[0].address to search for and return the right groups */
+});
