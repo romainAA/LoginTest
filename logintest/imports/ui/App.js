@@ -10,10 +10,9 @@ class App extends React.Component{
   constructor() {
     super();
     this.state = {
-      ready: false,
-      page: Main
+      page: Main,
+      ready: false
      };
-     Meteor.subscribe('userData', this.setState({ready: true}))
   }
 
 
@@ -27,7 +26,10 @@ class App extends React.Component{
     }
     const Page = this.state.page
     return (<div>
-      {this.state.ready ? <Page changePageFn={changePageFn}/> : 'Wait'}
+      <Page
+        changePageFn={changePageFn} 
+        setReady={() => this.setState({ready: true})}
+        ready={this.state.ready}/>
     </div>)
   }
 }

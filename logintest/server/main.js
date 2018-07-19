@@ -9,7 +9,7 @@ Meteor.startup(() => {
     Accounts.config({
       sendVerificationEmail: true
     })
-    console.log(Meteor.users.find({}).fetch().map(x => x.emails))
+    console.log(Meteor.users.find({}).fetch())
 
     console.info('Meteor settings', Meteor.settings);
     // const userId = Accounts.findUserByUsername('toto')._id
@@ -27,9 +27,9 @@ Meteor.methods({
   }
 })
 
-Meteor.publish('groups', function() {
-  if(!this.userId) return [];
-  var user = Meteor.users.findOne(this.userId);
-  return user.emails[0]
- /* use user.emails[0].address to search for and return the right groups */
+Meteor.publish('usersMails', function() {
+  if(!this.userId) return this.ready();
+  return Meteor.users.find({_id: this.userId}, {
+    fields: { username: 1, emails: 1}
+  })
 });
